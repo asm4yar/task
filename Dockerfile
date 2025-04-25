@@ -1,6 +1,5 @@
 FROM python:3.13-slim
 
-# Установка cron и зависимостей
 RUN apt-get update && \
     python -m ensurepip && \
     pip install --no-cache-dir --upgrade pip
