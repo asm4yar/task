@@ -4,9 +4,11 @@ import os
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import Command
 from aiogram.types import Message
+from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from dotenv import load_dotenv
-from util import (load_message, send_text, send_image, show_main_menu,
-                  default_callback_handler)
+
+from util import (load_message, send_image)
+
 load_dotenv()
 
 bot = Bot(token=os.environ.get('TELEGRAM_TOKEN'))
@@ -16,8 +18,17 @@ dp = Dispatcher()
 # Обработчик команды /start
 @dp.message(Command("start"))
 async def cmd_start(message: Message):
+    keyboard = ReplyKeyboardBuilder()
+    keyboard.button(
+        text='/start',
+    )
+    keyboard.button(
+        text='/help',
+    )
+
     text = load_message('main')
-    await message.answer(text)
+    await send_image(chat_id=message.chat.id, name='main', bot=message.bot)
+    await message.answer(text=text, reply_markup=keyboard.as_markup())
 
 
 # Обработчик любого текстового сообщения

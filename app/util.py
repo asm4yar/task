@@ -1,3 +1,5 @@
+from aiogram import Bot
+from aiogram.types import FSInputFile
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Message, \
     BotCommand, MenuButtonCommands, BotCommandScopeChat, MenuButtonDefault
 from telegram import Update
@@ -50,9 +52,9 @@ async def send_text_buttons(update: Update, context: ContextTypes.DEFAULT_TYPE,
 
 
 # посылает в чат фото
-async def send_image(update: Update, context: ContextTypes.DEFAULT_TYPE, name: str) -> Message:
-    with open(f'resources/images/{name}.jpg', 'rb') as image:
-        return await context.bot.send_photo(chat_id=update.effective_chat.id, photo=image)
+async def send_image(chat_id: int, name: str, bot: Bot) -> Message:
+    photo = FSInputFile(f'resources/images/{name}.jpg')
+    return await bot.send_photo(chat_id=chat_id, photo=photo)
 
 
 # отображает команду и главное меню

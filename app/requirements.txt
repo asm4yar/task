@@ -2,3 +2,4 @@ python-dotenv
 openai
 asyncio
 aiogram
+python-telegram-bot
