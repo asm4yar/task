@@ -26,6 +26,11 @@ async def cmd_start(message: Message):
         text='/help',
     )
 
+    keyboard.button(
+        text='/phome',
+        request_contact=True
+    )
+
     text = load_message('main')
     await send_image(chat_id=message.chat.id, name='main', bot=message.bot)
     await message.answer(text=text, reply_markup=keyboard.as_markup())
